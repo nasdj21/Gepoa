@@ -5,10 +5,8 @@ export class BaseService {
     this.table = table
   }
 
-  async select(columns = '*') {
-    const { data, error } = await supabase.from(this.table).select(columns)
-    if (error) throw error
-    return data
+  query(columns = '*') {
+    return supabase.from(this.table).select(columns)
   }
 
   async rpc(functionName, params = {}) {

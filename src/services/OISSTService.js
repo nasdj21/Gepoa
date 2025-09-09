@@ -6,7 +6,8 @@ class OISSTServiceClass extends BaseService {
   }
 
   async getByCod(cod) {
-    return this.select('*').eq('properties->>COD', cod)
+    const data = await this.select('*').eq('properties.COD', cod)
+    return data[0] || null
   }
 }
 

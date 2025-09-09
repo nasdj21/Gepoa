@@ -5,8 +5,13 @@ class ERA5ServiceClass extends BaseService {
     super('GEPOA_ERA5')
   }
 
-  async getByCod(cod) {
-    return this.select('*').eq('properties->>COD', cod)
+  async getAveragesByCodAndDate(cod, start, end) {
+    const rows = await this.rpc('get_era5_avg_range', {
+      cod_input: cod,
+      start_date: start,
+      end_date: end,
+    })
+    return rows[0] || null
   }
 }
 

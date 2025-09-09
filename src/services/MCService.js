@@ -6,7 +6,8 @@ class MCServiceClass extends BaseService {
   }
 
   async getByCod(cod) {
-    return this.select('*').eq('properties->>COD', cod)
+    const data = await this.select('*').eq('COD', cod)
+    return data[0] || null
   }
 }
 

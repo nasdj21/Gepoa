@@ -11,17 +11,13 @@ class AOEServiceClass extends BaseService {
     return {
       type: 'FeatureCollection',
       name: 'GEPOA_AOE_4326',
-      crs: {
-        type: 'name',
-        properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' },
-      },
       features: rows.map((r) => ({
         type: 'Feature',
         properties: {
           COD: r.cod,
           NOMBRE: r.nombre,
         },
-        geometry: r.geometry,
+        geometry: typeof r.geometry === 'string' ? JSON.parse(r.geometry) : r.geometry,
       })),
     }
   }
