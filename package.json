@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
+    "@supabase/supabase-js": "^2.57.2",
     "leaflet": "^1.9.4",
     "pinia": "^3.0.3",
     "vue": "^3.5.18",
