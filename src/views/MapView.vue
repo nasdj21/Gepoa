@@ -114,10 +114,15 @@ function toPgDate(date) {
 
 async function tooltipGepoa(feature, layer) {
   const cod = feature.properties.COD
+  const nombre = feature.properties.NOMBRE
+
+  layer.bindTooltip(`<b>${nombre}</b><br>Código: ${cod}`, {
+    sticky: true,
+    direction: 'top',
+    opacity: 0.9,
+  })
 
   layer.on('mouseover', async () => {
-    let content = `<b>${feature.properties.NOMBRE}</b><br>Código: ${cod}`
-
     if (selectedVariable.value) {
       const variable = variables.find((v) => v.value === selectedVariable.value)
 
@@ -127,20 +132,10 @@ async function tooltipGepoa(feature, layer) {
           toPgDate(dateStart.value),
           toPgDate(dateEnd.value),
         )
-        if (avgRow) {
-          const key = `${variable.value.toLowerCase()}_avg`
-          content += `<br>${variable.text}: ${avgRow[key] ?? 'N/A'}`
-        } else {
-          content += `<br>${variable.text}: N/A`
-        }
+        const val = avgRow ? (avgRow[`${variable.value.toLowerCase()}_avg`] ?? 'N/A') : 'N/A'
+        layer.setTooltipContent(`<b>${nombre}</b><br>Código: ${cod}<br>${variable.text}: ${val}`)
       }
     }
-
-    layer.bindTooltip(content, { sticky: true }).openTooltip()
-  })
-
-  layer.on('mouseout', () => {
-    layer.closeTooltip()
   })
 }
 
@@ -153,8 +148,6 @@ onMounted(async () => {
   }).addTo(map)
 
   const geojson = await AOEService.getAsGeoJson()
-
-  console.log('GeoJSON:', geojson)
 
   const layer = L.geoJSON(geojson, {
     style,
