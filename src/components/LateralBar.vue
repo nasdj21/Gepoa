@@ -28,8 +28,8 @@ const dateStart = ref(null)
 const dateEnd = ref(null)
 
 defineExpose({
-  selectedVariable,
-  selectedZone,
+  variable: selectedVariable,
+  zone: selectedZone,
   dateStart,
   dateEnd,
 })
