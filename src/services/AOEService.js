@@ -1,4 +1,5 @@
 import { BaseService } from './BaseService'
+import { supabase } from './supabase'
 
 class AOEServiceClass extends BaseService {
   constructor() {
@@ -20,6 +21,18 @@ class AOEServiceClass extends BaseService {
         geometry: typeof r.geometry === 'string' ? JSON.parse(r.geometry) : r.geometry,
       })),
     }
+  }
+
+  async getAllZones() {
+    const { data, error } = await supabase
+      .from('GEPOA_AOE')
+      .select('cod, nombre')   // 👈 seleccionamos solo lo necesario
+
+    if (error) {
+      console.error('Error cargando zonas:', error)
+      return []
+    }
+    return data
   }
 }
 

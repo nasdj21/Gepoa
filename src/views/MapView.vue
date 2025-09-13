@@ -1,58 +1,7 @@
 <template>
   <v-container fluid class="d-flex pa-0" style="height: 100vh">
     <!-- Panel lateral -->
-    <v-card class="pa-4" width="300">
-      <v-card-title>Filtros de Navegación</v-card-title>
-
-      <v-divider></v-divider>
-
-      <v-menu
-        v-model="menuStart"
-        :close-on-content-click="false"
-        transition="scale-transition"
-        offset-y
-        max-width="290px"
-        min-width="290px"
-      >
-        <template #activator="{ props }">
-          <v-btn v-bind="props" outlined block class="mb-3">
-            {{ dateStart ? formatDate(dateStart) : 'Escoger fecha inicio' }}
-          </v-btn>
-        </template>
-
-        <v-date-picker v-model="dateStart" @update:modelValue="menuStart = false" />
-      </v-menu>
-
-      <v-divider></v-divider>
-
-      <v-menu
-        v-model="menuEnd"
-        :close-on-content-click="false"
-        transition="scale-transition"
-        offset-y
-        max-width="290px"
-        min-width="290px"
-      >
-        <template #activator="{ props }">
-          <v-btn v-bind="props" outlined block class="mb-3">
-            {{ dateEnd ? formatDate(dateEnd) : 'Escoger fecha de fin' }}
-          </v-btn>
-        </template>
-
-        <v-date-picker v-model="dateEnd" @update:modelValue="menuEnd = false" />
-      </v-menu>
-
-      <v-select
-        v-model="selectedVariable"
-        :items="variables"
-        item-title="text"
-        item-value="value"
-        label="Seleccionar variable"
-        outlined
-        dense
-      />
-      <div class="mt-4 text-caption">Pase el cursor sobre un poligono para ver el valor.</div>
-    </v-card>
+    <LateralBar ref="filters" />
 
     <!-- Mapa como tal -->
     <div id="map" style="height: 100%; width: 100%"></div>
@@ -61,6 +10,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import LateralBar from '@/components/LateralBar.vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -69,34 +19,10 @@ import { AOEService } from '../services/AOEService'
 //import { OISSTService } from '../services/OISSTService'
 import { ERA5Service } from '../services/ERA5Service'
 
-const selectedVariable = ref(null)
-const dateStart = ref(null)
-const dateEnd = ref(null)
 
-const menuStart = ref(false)
-const menuEnd = ref(false)
+const filters = ref(null) // aquí accedemos a lo expuesto en LateralBar
 
-function formatDate(date) {
-  if (!date) return ''
-  const d = new Date(date)
-  const day = String(d.getDate()).padStart(2, '0')
-  const month = String(d.getMonth() + 1).padStart(2, '0')
-  const year = d.getFullYear()
-  return `${day}/${month}/${year}`
-}
 
-const variables = [
-  { text: 'Salinidad (so)', value: 'so', source: 'MC' },
-  { text: 'Temperatura Superficial del Mar (SST)', value: 'SST', source: 'OISST' },
-  { text: 'Anomalía SST (ANOM)', value: 'ANOM', source: 'OISST' },
-  { text: 'Temperatura Aire a 2m (T2m)', value: 'T2m', source: 'ERA5' },
-  { text: 'Viento U10', value: 'U10', source: 'ERA5' },
-  { text: 'Viento V10', value: 'V10', source: 'ERA5' },
-  { text: 'Presión Superficial (SPR)', value: 'SPR', source: 'ERA5' },
-  { text: 'Precipitación (PPT)', value: 'PPT', source: 'ERA5' },
-  { text: 'Magnitud Viento (MAG)', value: 'MAG', source: 'ERA5' },
-  { text: 'Dirección Viento (DIR)', value: 'DIR', source: 'ERA5' },
-]
 
 function style() {
   return {
@@ -123,14 +49,14 @@ async function tooltipGepoa(feature, layer) {
   })
 
   layer.on('mouseover', async () => {
-    if (selectedVariable.value) {
-      const variable = variables.find((v) => v.value === selectedVariable.value)
+    if (filters.value?.selectedVariable) {
+      const variable = filters.value.selectedVariable
 
       if (variable.source === 'ERA5') {
         const avgRow = await ERA5Service.getAveragesByCodAndDate(
           cod,
-          toPgDate(dateStart.value),
-          toPgDate(dateEnd.value),
+          toPgDate(filters.value.dateStart),
+          toPgDate(filters.value.dateEnd),
         )
         const val = avgRow ? (avgRow[`${variable.value.toLowerCase()}_avg`] ?? 'N/A') : 'N/A'
         layer.setTooltipContent(`<b>${nombre}</b><br>Código: ${cod}<br>${variable.text}: ${val}`)
@@ -155,5 +81,7 @@ onMounted(async () => {
   }).addTo(map)
 
   map.fitBounds(layer.getBounds)
+
+
 })
 </script>
