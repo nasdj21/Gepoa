@@ -58,7 +58,6 @@ onMounted(async () => {
 
     geoJsonLayer.eachLayer((layer) => {
       if (layer.feature.properties.COD === cod) {
-        console.log('Haciendo zoom a zona:', cod)
         map.fitBounds(layer.getBounds(), { padding: [40, 40], maxZoom: 12 })
       }
     })
