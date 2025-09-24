@@ -16,9 +16,11 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@supabase/supabase-js": "^2.57.2",
+    "chart.js": "^4.5.0",
     "leaflet": "^1.9.4",
     "pinia": "^3.0.3",
     "vue": "^3.5.18",
+    "vue-chartjs": "^5.3.2",
     "vue-router": "^4.5.1",
     "vuetify": "^3.9.7"
   },

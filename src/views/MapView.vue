@@ -14,8 +14,6 @@ import L from 'leaflet'
 import LateralBar from '@/components/LateralBar.vue'
 import 'leaflet/dist/leaflet.css'
 import { AOEService } from '../services/AOEService'
-//import { MCService } from '../services/MCService'
-//import { OISSTService } from '../services/OISSTService'
 
 
 
