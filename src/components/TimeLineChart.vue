@@ -1,7 +1,6 @@
 <template>
   <v-card
-  class="pa-4 mt-4 d-flex flex-column flex-grow-1"
-  style="min-height: 0;"
+    class="pa-4 d-flex flex-column timeline-card"
   >
 
     <v-card-title>Línea de tiempo</v-card-title>
@@ -124,3 +123,10 @@ watch(
   { immediate: true }
 )
 </script>
+
+<style scoped>
+.timeline-card {
+  width: 100%;
+  max-height: 280px;
+}
+</style>
