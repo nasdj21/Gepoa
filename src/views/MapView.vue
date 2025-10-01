@@ -70,7 +70,7 @@ onMounted(async () => {
 
       geoJsonLayer.eachLayer((layer) => {
         if (layer.feature.properties.COD === cod) {
-          map.fitBounds(layer.getBounds(), { padding: [40, 40], maxZoom: 11 })
+          map.fitBounds(layer.getBounds(), { padding: [40, 40], maxZoom: 12 })
         }
       })
     }

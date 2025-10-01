@@ -51,7 +51,6 @@ const chartData = ref({
   labels: [],
   datasets: [
     {
-      label: 'Valores',
       data: [],
       borderColor: '#1976d2',
       tension: 0.3,
@@ -68,6 +67,12 @@ const chartOptions = {
   },
   scales: {
     x: { ticks: { maxRotation: 90, minRotation: 45 } },
+  },
+  elements: {
+    point: {
+      radius: 0,
+      hoverRadius: 0,
+    },
   },
 }
 
