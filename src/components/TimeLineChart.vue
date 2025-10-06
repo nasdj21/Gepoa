@@ -109,7 +109,7 @@ watch(
     const e = toISODate(end)
     const service = pickService(variable)
 
-    const rows = await service.getValuesByCodAndDate(zone, variable, s, e)
+    const rows = await service.getValuesByCodAndDate(zone, variable, s, e) //Ver como gaurdo eso
 
     // Reemplazar el objeto completo para asegurar reactividad del chart
     chartData.value = {

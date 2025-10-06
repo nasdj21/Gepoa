@@ -7,18 +7,28 @@ class AOEServiceClass extends BaseService {
   }
 
   async getAsGeoJson() {
-    const rows = await this.rpc('get_gepoa_aoe')
+    const { data, error } = await supabase
+      .from('GEPOA_AOE')
+      .select('cod, nombre, geom')
+
+    if (error) {
+      console.error('Error cargando geometrías:', error)
+      return { type: 'FeatureCollection', name: 'GEPOA_AOE_4326', features: [] }
+    }
 
     return {
       type: 'FeatureCollection',
       name: 'GEPOA_AOE_4326',
-      features: rows.map((r) => ({
+      features: (data || []).map((row) => ({
         type: 'Feature',
         properties: {
-          COD: r.cod,
-          NOMBRE: r.nombre,
+          COD: row.cod,
+          NOMBRE: row.nombre,
         },
-        geometry: typeof r.geometry === 'string' ? JSON.parse(r.geometry) : r.geometry,
+        geometry:
+          typeof row.geom === 'string'
+            ? JSON.parse(row.geom)
+            : row.geom,
       })),
     }
   }
@@ -26,8 +36,7 @@ class AOEServiceClass extends BaseService {
   async getAllZones() {
     const { data, error } = await supabase
       .from('GEPOA_AOE')
-      .select('cod, nombre')   // 👈 seleccionamos solo lo necesario
-
+      .select('cod, nombre')
     if (error) {
       console.error('Error cargando zonas:', error)
       return []
