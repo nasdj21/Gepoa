@@ -1,7 +1,8 @@
 <template>
   <v-card
     class="pa-4 d-flex flex-column filter-card"
-    width="320"
+    width="300"
+
   >
     <v-card-title>Filtros de Navegación</v-card-title>
     <v-divider class="mb-4"></v-divider>
@@ -13,12 +14,6 @@
 
     <ZoneFilter v-model="selectedZone" class="mt-3" />
 
-
-
-
-    <div class="mt-4 text-caption">
-      Pase el cursor sobre un polígono para ver el valor.
-    </div>
   </v-card>
 </template>
 
