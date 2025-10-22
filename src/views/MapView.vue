@@ -49,10 +49,25 @@ function tooltipGepoa(feature, layer) {
 onMounted(async () => {
   map = L.map('map').setView([-0.747267, -84.735793], 7) // Quito como centro inicial aprox
 
-  // Tile layer de OpenStreetMap
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-  }).addTo(map)
+  const baseLayers = {
+    'OpenStreetMap': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+    }),
+    'Google Maps': L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      attribution: '&copy; Google',
+    }),
+    'Satélite de Google': L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      attribution: '&copy; Google',
+    }),
+    'National Geographic': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; National Geographic',
+    }),
+  }
+
+  baseLayers['OpenStreetMap'].addTo(map)
+  const layerControl = L.control.layers(baseLayers).addTo(map)
 
   const geojson = await AOEService.getAsGeoJson()
 
@@ -60,6 +75,7 @@ onMounted(async () => {
     style: { color: 'grey', weight: 2, fillColor: 'blue', fillOpacity: 0.3 },
     onEachFeature: tooltipGepoa,
   }).addTo(map)
+  layerControl.addOverlay(geoJsonLayer, 'AOE')
 
   map.fitBounds(geoJsonLayer.getBounds())
 
@@ -78,36 +94,3 @@ onMounted(async () => {
 
 })
 </script>
-
-<style scoped>
-.map-view-wrapper {
-  height: 100vh;
-}
-
-.map-view-wrapper__inner {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
-.map-view-wrapper__map {
-  height: 100%;
-  width: 100%;
-}
-
-.map-view-wrapper__filters {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 500;
-}
-
-.map-view-wrapper__timeline {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
-  width: 50vw;
-  max-width: 50vw;
-  z-index: 500;
-}
-</style>

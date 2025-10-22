@@ -8,3 +8,34 @@ body,
 .v-application {
   background: var(--v-theme-background) !important;
 }
+
+.map-view-wrapper {
+  height: 100vh;
+}
+
+.map-view-wrapper__inner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.map-view-wrapper__map {
+  height: 100%;
+  width: 100%;
+}
+
+.map-view-wrapper__filters {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 500;
+}
+
+.map-view-wrapper__timeline {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  width: 50vw;
+  max-width: 50vw;
+  z-index: 500;
+}
