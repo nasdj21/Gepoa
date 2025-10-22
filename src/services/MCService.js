@@ -7,20 +7,27 @@ class MCServiceClass extends BaseService {
   }
 
   async getValuesByCodAndDate(cod, variable, start, end) {
+    const baseSelect = `fecha,"${variable}"`
+    const codColumn = 'COD'
+
     let query = supabase
       .from('GEPOA_MC')
-      .select(`Fecha,"${variable}"`)
-      .eq('COD', cod)
+      .select(`${baseSelect},${codColumn}`)
+      .eq(codColumn, cod)
 
-    if (start) query = query.gte('Fecha', start)
-    if (end) query = query.lte('Fecha', end)
+    if (start) query = query.gte('fecha', start)
+    if (end) query = query.lte('fecha', end)
 
-    const { data, error } = await query.order('Fecha', { ascending: true })
+    const { data, error } = await query.order('fecha', { ascending: true })
     if (error) {
       console.error('Error MC getValuesByCodAndDate:', error)
       return []
     }
-    return data
+    return (data || []).map((row) => {
+      const cleaned = { ...row }
+      delete cleaned['COD']
+      return cleaned
+    })
   }
 }
 

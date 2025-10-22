@@ -26,13 +26,17 @@ watch(variable, (val) => {
 })
 
 const variables = [
-  { text: 'Salinidad (so)', value: 'so', source: 'MC' },
-  { text: 'Temperatura Superficial del Mar (SST)', value: 'SST', source: 'OISST' },
-  { text: 'Anomalía SST (ANOM)', value: 'ANOM', source: 'OISST' },
-  { text: 'Temperatura Aire a 2m (T2m)', value: 'T2m', source: 'ERA5' },
-  { text: 'Presión Superficial (SPR)', value: 'SPR', source: 'ERA5' },
-  { text: 'Precipitación (PPT)', value: 'PPT', source: 'ERA5' },
-  { text: 'Magnitud Viento (MAG)', value: 'MAG', source: 'ERA5' },
-  { text: 'Dirección Viento (DIR)', value: 'DIR', source: 'ERA5' },
+  { text: 'Temperatura Superficial del Mar (°C)', value: 'SST', source: 'OISST' },
+  { text: 'Anomalía de Temperatura Superficial del Mar (°C)', value: 'ANOM', source: 'OISST' },
+  { text: 'Salinidad (psu)', value: 'so', source: 'MC' },
+  { text: 'Nivel medio del mar (m)', value: 'zos', source: 'MC' },
+  { text: 'Magnitud de la corriente superficial (m/s)', value: 'Magnitud', source: 'MC' },
+  { text: 'Dirección de la corriente superficial (°)', value: 'Dirección', source: 'MC' },
+  { text: 'Temperatura del Aire a 2m (°C)', value: 'T2m', source: 'ERA5' },
+  { text: 'Magnitud Viento (m/s)', value: 'MAG', source: 'ERA5' },
+  { text: 'Dirección Viento (°)', value: 'DIR', source: 'ERA5' },
+  { text: 'Presión Superficial (hPa)', value: 'SPR', source: 'ERA5' },
+  { text: 'Precipitación (mm)', value: 'PPT', source: 'ERA5' },
+
 ]
 </script>
