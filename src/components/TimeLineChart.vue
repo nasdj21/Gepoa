@@ -175,7 +175,6 @@ watch(
     const service = pickService(variable)
 
     const rows = await service.getValuesByCodAndDate(zone, variable, s, e)
-    console.log(rows)
     currentRows.value = rows
     const labels = rows.map((r) => r.fecha)
     tickStep.value = labels.length ? Math.max(1, Math.ceil(labels.length / MAX_VISIBLE_LABELS)) : 1

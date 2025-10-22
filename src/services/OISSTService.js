@@ -8,7 +8,7 @@ class OISSTServiceClass extends BaseService {
 
   async getValuesByCodAndDate(cod, variable, start, end) {
     const baseSelect = `fecha,"${variable}"`
-    const codColumn = '"properties.COD"'
+    const codColumn = 'COD'
 
     let query = supabase
       .from('GEPOA_OISST')
@@ -26,7 +26,7 @@ class OISSTServiceClass extends BaseService {
 
     return (data || []).map((row) => {
       const cleaned = { ...row }
-      delete cleaned['properties.COD']
+      delete cleaned['COD']
       return cleaned
     })
   }
