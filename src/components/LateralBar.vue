@@ -33,6 +33,12 @@ defineExpose({
   zone: selectedZone,
   dateStart,
   dateEnd,
+  setZone(value) {
+    selectedZone.value = value
+  },
+  setVariable(value) {
+    selectedVariable.value = value
+  },
 })
 </script>
 

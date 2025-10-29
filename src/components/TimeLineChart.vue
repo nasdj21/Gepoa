@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <v-card class="pa-3 d-flex flex-column timeline-card">
     <v-card-title class="d-flex align-center justify-space-between">
       <span>Linea de tiempo</span>
@@ -9,7 +9,7 @@
         color="primary"
         @click="downloadCsv"
       >
-        Descargar CSV
+        Descargar Datos
       </v-btn>
     </v-card-title>
 

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <v-container fluid class="pa-0 map-view-wrapper">
     <div class="map-view-wrapper__inner">
       <div id="map" class="map-view-wrapper__map"></div>
@@ -28,6 +28,7 @@ import { useMapInteractions } from '@/composables/useMapInteractions'
 const filters = ref(null)
 let map = null
 let geoJsonLayer = null
+let pendingZoneSelection = null
 
 const readFilterValue = (key) => {
   const exposed = filters.value?.[key]
@@ -54,8 +55,7 @@ const timelineEnd = computed(() => readFilterValue('dateEnd'))
 
 const { bindZoneInteractions } = useMapInteractions({
   onZoneSelect: (cod) => {
-    writeFilterValue('zone', cod)
-    fitZone(cod)
+    handleZoneSelection(cod)
   },
 })
 
@@ -89,6 +89,25 @@ const fitZone = (cod) => {
   })
 }
 
+function handleZoneSelection(cod) {
+  if (!cod) return
+
+  const currentFilters = filters.value
+  if (!currentFilters) {
+    pendingZoneSelection = cod
+    return
+  }
+
+  if (typeof currentFilters.setZone === 'function') {
+    currentFilters.setZone(cod)
+  } else {
+    writeFilterValue('zone', cod)
+  }
+
+  fitZone(cod)
+  pendingZoneSelection = null
+}
+
 onMounted(async () => {
   map = L.map('map').setView([-0.747267, -84.735793], 7)
 
@@ -113,4 +132,20 @@ onMounted(async () => {
 watch(timelineZone, (cod) => {
   fitZone(cod)
 })
+
+watch(
+  () => filters.value,
+  (current) => {
+    if (!pendingZoneSelection || !current) return
+
+    if (typeof current.setZone === 'function') {
+      current.setZone(pendingZoneSelection)
+    } else {
+      writeFilterValue('zone', pendingZoneSelection)
+    }
+
+    fitZone(pendingZoneSelection)
+    pendingZoneSelection = null
+  }
+)
 </script>

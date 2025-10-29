@@ -30,4 +30,13 @@ onMounted(async () => {
 watch(zone, (val) => {
   emit('update:modelValue', val)
 })
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val !== zone.value) {
+      zone.value = val
+    }
+  }
+)
 </script>
