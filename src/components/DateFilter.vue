@@ -15,7 +15,7 @@
             v-bind="props"
             readonly
             variant="outlined"
-            density="comfortable"
+            density="compact"
             hide-details
             :model-value="formattedStart"
             placeholder="Seleccionar fecha inicio"
@@ -46,7 +46,7 @@
             v-bind="props"
             readonly
             variant="outlined"
-            density="comfortable"
+            density="compact"
             hide-details
             :model-value="formattedEnd"
             placeholder="Seleccionar fecha fin"

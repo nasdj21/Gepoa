@@ -5,7 +5,7 @@
     item-title="text"
     item-value="value"
     variant="outlined"
-    density="comfortable"
+    density="compact"
     hide-details
     placeholder="Seleccionar variable"
     class="filter-select"

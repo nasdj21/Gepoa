@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-container fluid class="pa-0 map-view-wrapper">
     <div class="map-view-wrapper__inner">
       <div id="map" class="map-view-wrapper__map"></div>
@@ -69,6 +69,22 @@ const createBaseLayers = () => ({
     attribution: '&copy; Google',
   }),
 
+  'Satelite de Esri': L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {
+    attribution: 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+    maxZoom: 19,
+  }),
+
+  'Topografía de Esri': L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+  {
+    attribution:
+      'Tiles © Esri — Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and other contributors',
+    maxZoom: 19,
+  }),
+
+
 })
 
 function handleZoneSelection(cod) {
@@ -91,22 +107,22 @@ function handleZoneSelection(cod) {
 }
 
 const defaultStyle = { color: 'grey', weight: 2, fillColor: 'blue', fillOpacity: 0.3 }
-const activeStyle   = { color: 'darkred',  weight: 2, fillColor: 'darkred',  fillOpacity: 0.40 }
-
+const activeStyle = { color: 'darkred', weight: 2, fillColor: 'darkred', fillOpacity: 0.4 }
 
 onMounted(async () => {
   map = L.map('map').setView([-0.747267, -84.735793], 7)
 
   const baseLayers = createBaseLayers()
   baseLayers.OpenStreetMap.addTo(map)
-  L.control.layers(baseLayers).addTo(map)
+
+  map.zoomControl.setPosition('topright')
+  L.control.layers(baseLayers, null, { position: 'bottomright', collapsed: false }).addTo(map)
 
   const geojson = await AOEService.getAsGeoJson()
   geoJsonLayer = L.geoJSON(geojson, {
     style: defaultStyle,
     onEachFeature: (feature, layer) => bindZoneInteractions({ feature, layer }),
   }).addTo(map)
-
 
   map.fitBounds(geoJsonLayer.getBounds())
 
@@ -123,12 +139,11 @@ const fitZone = (cod) => {
     layer.setStyle(isActive ? activeStyle : defaultStyle)
     if (isActive) {
       map.fitBounds(layer.getBounds(), {
-      maxZoom: 10
-    })
+        maxZoom: 10,
+      })
     }
   })
 }
-
 
 watch(timelineZone, (cod) => {
   fitZone(cod)

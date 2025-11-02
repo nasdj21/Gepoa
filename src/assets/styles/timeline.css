@@ -1,4 +1,30 @@
 .timeline-card {
   width: 100%;
   max-height: 280px;
+  padding: 12px;
+  gap: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-card .v-card-title {
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.timeline-card__download {
+  min-width: 0;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 9999px;
+  text-transform: none;
+  letter-spacing: 0.4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+}
+
+.timeline-card__download .v-btn__prepend {
+  margin-inline-end: 4px;
 }

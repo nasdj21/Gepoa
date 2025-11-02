@@ -5,7 +5,7 @@
     item-title="nombre"
     item-value="cod"
     variant="outlined"
-    density="comfortable"
+    density="compact"
     hide-details
     placeholder="Seleccionar zona"
     class="filter-select"

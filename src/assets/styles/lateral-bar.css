@@ -4,7 +4,7 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
   border-radius: 16px;
   background: #ffffff;
   box-shadow: 0 16px 38px rgba(15, 23, 42, 0.18);
@@ -18,7 +18,7 @@
 
 .filter-card__title {
   margin: 0;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   color: #0f172a;
   letter-spacing: 0.4px;
@@ -27,14 +27,14 @@
 
 .filter-card__subtitle {
   margin: 0;
-  font-size: 13px;
+  font-size: 12px;
   color: #64748b;
 }
 
 .filter-card__body {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 15px;
 }
 
 .filter-card__group {
@@ -48,7 +48,7 @@
 }
 
 .filter-card__label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.3px;
   color: #475569;
@@ -70,7 +70,7 @@
 }
 
 .filter-select .v-field__input {
-  font-size: 15px;
+  font-size: 16px;
   color: #1f2937;
 }
 
@@ -82,7 +82,7 @@
 .date-filter {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .date-filter__field {
@@ -92,7 +92,7 @@
 }
 
 .date-filter__label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.3px;
   color: #475569;

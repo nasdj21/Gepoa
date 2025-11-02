@@ -1,15 +1,15 @@
 <template>
-  <v-card class="pa-3 d-flex flex-column timeline-card">
+  <v-card class="timeline-card">
     <v-card-title class="d-flex align-center justify-space-between">
       <span>Linea de tiempo</span>
       <v-btn
         v-if="shouldShowChart"
-        size="small"
-        variant="text"
+        class="timeline-card__download"
         color="primary"
+        prepend-icon="mdi-download"
         @click="downloadCsv"
       >
-        Descargar Datos
+        Descargar datos
       </v-btn>
     </v-card-title>
 
