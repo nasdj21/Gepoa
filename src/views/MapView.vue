@@ -63,31 +63,13 @@ const createBaseLayers = () => ({
   OpenStreetMap: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors',
   }),
-  'Google Maps': L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-    attribution: '&copy; Google',
-  }),
+
   'Satelite de Google': L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
     attribution: '&copy; Google',
   }),
-  'National Geographic': L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}',
-    {
-      attribution: 'Tiles &copy; National Geographic',
-    }
-  ),
+
 })
-
-const fitZone = (cod) => {
-  if (!cod || !geoJsonLayer || !map) return
-
-  geoJsonLayer.eachLayer((layer) => {
-    if (layer.feature?.properties?.COD === cod) {
-      map.fitBounds(layer.getBounds(), { padding: [40, 40], maxZoom: 12 })
-    }
-  })
-}
 
 function handleZoneSelection(cod) {
   if (!cod) return
@@ -108,26 +90,45 @@ function handleZoneSelection(cod) {
   pendingZoneSelection = null
 }
 
+const defaultStyle = { color: 'grey', weight: 2, fillColor: 'blue', fillOpacity: 0.3 }
+const activeStyle   = { color: 'darkred',  weight: 2, fillColor: 'darkred',  fillOpacity: 0.40 }
+
+
 onMounted(async () => {
   map = L.map('map').setView([-0.747267, -84.735793], 7)
 
   const baseLayers = createBaseLayers()
   baseLayers.OpenStreetMap.addTo(map)
-  const layerControl = L.control.layers(baseLayers).addTo(map)
+  L.control.layers(baseLayers).addTo(map)
 
   const geojson = await AOEService.getAsGeoJson()
   geoJsonLayer = L.geoJSON(geojson, {
-    style: { color: 'grey', weight: 2, fillColor: 'blue', fillOpacity: 0.3 },
+    style: defaultStyle,
     onEachFeature: (feature, layer) => bindZoneInteractions({ feature, layer }),
   }).addTo(map)
 
-  layerControl.addOverlay(geoJsonLayer, 'AOE')
+
   map.fitBounds(geoJsonLayer.getBounds())
 
   if (timelineZone.value) {
     fitZone(timelineZone.value)
   }
 })
+
+const fitZone = (cod) => {
+  if (!cod || !geoJsonLayer || !map) return
+
+  geoJsonLayer.eachLayer((layer) => {
+    const isActive = layer.feature?.properties?.COD === cod
+    layer.setStyle(isActive ? activeStyle : defaultStyle)
+    if (isActive) {
+      map.fitBounds(layer.getBounds(), {
+      maxZoom: 10
+    })
+    }
+  })
+}
+
 
 watch(timelineZone, (cod) => {
   fitZone(cod)

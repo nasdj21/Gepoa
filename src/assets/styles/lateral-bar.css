@@ -1,23 +1,6 @@
-@import './styles/map-view.css';
-@import './styles/lateral-bar.css';
-@import './styles/timeline.css';
-
-html,
-body,
-#app {
-  height: 100%;
-  margin: 0;
-}
-
-.v-application {
-  background: var(--v-theme-background) !important;
-}
-
 .filter-card {
-
   width: 320px;
   max-height: calc(100vh - 32px);
-
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -26,11 +9,13 @@ body,
   background: #ffffff;
   box-shadow: 0 16px 38px rgba(15, 23, 42, 0.18);
 }
+
 .filter-card__header {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
+
 .filter-card__title {
   margin: 0;
   font-size: 17px;
@@ -39,24 +24,29 @@ body,
   letter-spacing: 0.4px;
   text-transform: uppercase;
 }
+
 .filter-card__subtitle {
   margin: 0;
   font-size: 13px;
   color: #64748b;
 }
+
 .filter-card__body {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
+
 .filter-card__group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
 .filter-card__group--dates {
   gap: 12px;
 }
+
 .filter-card__label {
   font-size: 13px;
   font-weight: 600;
@@ -64,6 +54,51 @@ body,
   color: #475569;
   text-transform: uppercase;
 }
+
 .filter-card__control {
   width: 100%;
+}
+
+.filter-select .v-field {
+  border-radius: 10px;
+  border-width: 1.5px;
+}
+
+.filter-select .v-field__outline {
+  --v-field-border-opacity: 1;
+  --v-field-border-color: #cbd5f5;
+}
+
+.filter-select .v-field__input {
+  font-size: 15px;
+  color: #1f2937;
+}
+
+.filter-select .v-label,
+.filter-select .v-field__label {
+  display: none;
+}
+
+.date-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.date-filter__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.date-filter__label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.date-filter__input .v-field {
+  border-radius: 10px;
 }

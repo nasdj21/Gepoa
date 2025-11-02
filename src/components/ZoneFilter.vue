@@ -4,9 +4,12 @@
     :items="zones"
     item-title="nombre"
     item-value="cod"
-    label="Seleccionar zona"
-    outlined
-    dense
+    variant="outlined"
+    density="comfortable"
+    hide-details
+    placeholder="Seleccionar zona"
+    class="filter-select"
+    menu-icon="mdi-menu-down"
   />
 </template>
 
@@ -40,3 +43,9 @@ watch(
   }
 )
 </script>
+
+<style scoped>
+.filter-select :deep(.v-field) {
+  border-radius: 10px;
+}
+</style>

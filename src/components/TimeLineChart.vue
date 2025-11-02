@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <v-card class="pa-3 d-flex flex-column timeline-card">
     <v-card-title class="d-flex align-center justify-space-between">
       <span>Linea de tiempo</span>
@@ -60,10 +60,3 @@ const shouldShowChart = computed(() => hasSelection.value && hasData.value)
 const shouldShowNoData = computed(() => hasSelection.value && !hasData.value)
 const shouldShowPrompt = computed(() => !hasSelection.value)
 </script>
-
-<style scoped>
-.timeline-card {
-  width: 100%;
-  max-height: 280px;
-}
-</style>

@@ -1,18 +1,32 @@
 <template>
-  <v-card
-    class="pa-4 d-flex flex-column filter-card"
-    width="300"
+   <v-card class="filter-card">
+    <header class="filter-card__header">
+      <h2 class="filter-card__title">Filtros de navegación</h2>
+      <p class="filter-card__subtitle">
+        Define el rango de fechas, variable y zona para explorar los datos.
+      </p>
+    </header>
 
-  >
-    <v-card-title>Filtros de Navegación</v-card-title>
-    <v-divider class="mb-4"></v-divider>
 
-    <!-- Aquí irán los subcomponentes -->
-    <DateFilter v-model:start="dateStart" v-model:end="dateEnd" />
+    <div class="filter-card__body">
+      <section class="filter-card__group filter-card__group--dates">
+        <DateFilter
+          v-model:start="dateStart"
+          v-model:end="dateEnd"
+          class="filter-card__control"
+        />
+      </section>
 
-    <VariableFilter v-model="selectedVariable" />
+    <section class="filter-card__group">
+        <span class="filter-card__label">Variable</span>
+        <VariableFilter v-model="selectedVariable" class="filter-card__control" />
+      </section>
 
-    <ZoneFilter v-model="selectedZone" class="mt-3" />
+    <section class="filter-card__group">
+        <span class="filter-card__label">Zona</span>
+        <ZoneFilter v-model="selectedZone" class="filter-card__control" />
+      </section>
+    </div>
 
   </v-card>
 </template>
@@ -42,10 +56,3 @@ defineExpose({
 })
 </script>
 
-<style scoped>
-.filter-card {
-  max-width: 320px;
-  max-height: calc(100vh - 32px);
-  overflow-y: auto;
-}
-</style>
