@@ -1,13 +1,26 @@
-.filter-card {
-  width: 320px;
-  max-height: calc(100vh - 32px);
-  padding: 24px;
+﻿.filter-card {
+  width: min(17vw, 280px);
+  min-width: 240px;
+  max-width: 90vw;
+  padding: clamp(12px, 1.5vw, 20px);
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: clamp(10px, 1.4vw, 16px);
   border-radius: 16px;
   background: #ffffff;
   box-shadow: 0 16px 38px rgba(15, 23, 42, 0.18);
+}
+
+@media (max-width: 1200px) {
+  .filter-card {
+    width: min(24vw, 260px);
+  }
+}
+
+@media (max-width: 900px) {
+  .filter-card {
+    width: min(32vw, 260px);
+  }
 }
 
 .filter-card__header {
@@ -18,7 +31,7 @@
 
 .filter-card__title {
   margin: 0;
-  font-size: 16px;
+  font-size: clamp(12px, 1.2vw, 7px);
   font-weight: 600;
   color: #0f172a;
   letter-spacing: 0.4px;
@@ -27,28 +40,28 @@
 
 .filter-card__subtitle {
   margin: 0;
-  font-size: 12px;
+  font-size: clamp(10px, 1vw, 6px);
   color: #64748b;
 }
 
 .filter-card__body {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: clamp(10px, 1.2vw, 10px);
 }
 
 .filter-card__group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .filter-card__group--dates {
-  gap: 12px;
+  gap: clamp(8px, 1vw, 10px);
 }
 
 .filter-card__label {
-  font-size: 12px;
+  font-size: clamp(9px, 0.9vw, 10px);
   font-weight: 600;
   letter-spacing: 0.3px;
   color: #475569;
@@ -70,7 +83,7 @@
 }
 
 .filter-select .v-field__input {
-  font-size: 16px;
+  font-size: clamp(12px, 1.1vw, 10px);
   color: #1f2937;
 }
 
@@ -82,17 +95,17 @@
 .date-filter {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: clamp(8px, 1vw, 10px);
 }
 
 .date-filter__field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .date-filter__label {
-  font-size: 12px;
+  font-size: clamp(9px, 0.9vw, 10px);
   font-weight: 600;
   letter-spacing: 0.3px;
   color: #475569;
@@ -100,5 +113,10 @@
 }
 
 .date-filter__input .v-field {
+  font-size: clamp(9px, 0.9vw, 15px);
   border-radius: 10px;
+}
+
+.date-filter__input .v-field__content {
+  min-height: clamp(30px, 3vw, 14px);
 }

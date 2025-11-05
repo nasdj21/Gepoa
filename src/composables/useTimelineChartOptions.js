@@ -11,6 +11,11 @@ export function useTimelineChartOptions(chartData, tickStep) {
     return {
       responsive: true,
       maintainAspectRatio: false,
+      interaction: {
+        mode: 'nearest',
+        axis: 'x',
+        intersect: false,
+      },
       plugins: {
         legend: { display: false },
       },
@@ -30,7 +35,8 @@ export function useTimelineChartOptions(chartData, tickStep) {
       elements: {
         point: {
           radius: 0,
-          hoverRadius: 0,
+          hoverRadius: 3,
+          hitRadius: 8,
         },
       },
     }

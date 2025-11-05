@@ -3,6 +3,10 @@
     <div class="map-view-wrapper__inner">
       <div id="map" class="map-view-wrapper__map"></div>
 
+      <header class="app-header">
+        <img src="@/assets/Logo_gepoa.jpeg" alt="Geoportal logo" class="app-header__logo" />
+      </header>
+
       <LateralBar ref="filters" class="map-view-wrapper__filters" />
 
       <TimeLineChart
@@ -60,27 +64,28 @@ const { bindZoneInteractions } = useMapInteractions({
 })
 
 const createBaseLayers = () => ({
-  OpenStreetMap: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  'Vista General': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors',
   }),
 
-  'Satelite de Google': L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-    attribution: '&copy; Google',
-  }),
-
-  'Satelite de Esri': L.tileLayer(
+  'Vista Satelital Esri': L.tileLayer(
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
   {
     attribution: 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
     maxZoom: 19,
   }),
 
-  'Topografía de Esri': L.tileLayer(
+  'Vista Satelital Google': L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    attribution: '&copy; Google',
+  }),
+
+
+  'Vista Topográfica': L.tileLayer(
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
   {
     attribution:
-      'Tiles © Esri — Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and other contributors',
+      'Tiles © Esri — Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, and other contributors',
     maxZoom: 19,
   }),
 
@@ -108,12 +113,13 @@ function handleZoneSelection(cod) {
 
 const defaultStyle = { color: 'grey', weight: 2, fillColor: 'blue', fillOpacity: 0.3 }
 const activeStyle = { color: 'darkred', weight: 2, fillColor: 'darkred', fillOpacity: 0.4 }
+const hoverStyle = { color: '#9398a2', weight: 2.5, dashArray: '4 3', fillColor: '#415f68', fillOpacity: 0.4 }
 
 onMounted(async () => {
-  map = L.map('map').setView([-0.747267, -84.735793], 7)
+  map = L.map('map').setView([-0.747267, -87], 6.5)
 
   const baseLayers = createBaseLayers()
-  baseLayers.OpenStreetMap.addTo(map)
+  baseLayers['Vista General'].addTo(map)
 
   map.zoomControl.setPosition('topright')
   L.control.layers(baseLayers, null, { position: 'bottomright', collapsed: false }).addTo(map)
@@ -121,10 +127,23 @@ onMounted(async () => {
   const geojson = await AOEService.getAsGeoJson()
   geoJsonLayer = L.geoJSON(geojson, {
     style: defaultStyle,
-    onEachFeature: (feature, layer) => bindZoneInteractions({ feature, layer }),
+    onEachFeature: (feature, layer) => {
+      bindZoneInteractions({ feature, layer })
+
+      layer.on('mouseover', () => {
+        layer.bringToFront()
+        layer.setStyle(hoverStyle)
+      })
+
+      layer.on('mouseout', () => {
+        const cod = timelineZone.value
+        const isActive = layer.feature?.properties?.COD === cod
+        layer.setStyle(isActive ? activeStyle : defaultStyle)
+      })
+    },
   }).addTo(map)
 
-  map.fitBounds(geoJsonLayer.getBounds())
+
 
   if (timelineZone.value) {
     fitZone(timelineZone.value)

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <v-select
     v-model="zone"
     :items="zones"
@@ -43,9 +43,3 @@ watch(
   }
 )
 </script>
-
-<style scoped>
-.filter-select :deep(.v-field) {
-  border-radius: 10px;
-}
-</style>

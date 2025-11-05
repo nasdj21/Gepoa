@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <v-select
     v-model="variable"
     :items="variables"
@@ -42,9 +42,3 @@ const variables = [
   { text: 'Precipitacion (mm)', value: 'PPT', source: 'ERA5' },
 ]
 </script>
-
-<style scoped>
-.filter-select :deep(.v-field) {
-  border-radius: 10px;
-}
-</style>
