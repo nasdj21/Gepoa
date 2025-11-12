@@ -3,10 +3,6 @@
     <div class="map-view-wrapper__inner">
       <div id="map" class="map-view-wrapper__map"></div>
 
-      <header class="app-header">
-       <GeoportalNavbar />
-      </header>
-
       <LateralBar ref="filters" class="map-view-wrapper__filters" />
 
       <TimeLineChart
@@ -23,7 +19,6 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import L from 'leaflet'
-import GeoportalNavbar from '@/components/GeoportalNavbar.vue'
 import LateralBar from '@/components/LateralBar.vue'
 import TimeLineChart from '@/components/TimeLineChart.vue'
 import 'leaflet/dist/leaflet.css'

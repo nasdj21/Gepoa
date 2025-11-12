@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 45px;
+  height: 50px;
   background: linear-gradient(90deg, #0b4f6c, #0f6d7a);
   display: flex;
   align-items: center;
@@ -12,28 +12,53 @@
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
 }
 
-.app-header__logo {
-  height: 45px;
-  width: auto;
-  object-fit: contain;
-}
-
-.navbar{
+.navbar {
+  flex: 1;
   display: flex;
   align-items: center;
 }
 
-.nav-links{
+.navbar__brand {
   display: flex;
-  gap: 50px;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar__logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+
+.navbar__links {
+  display: flex;
   list-style: none;
-}
-
-.nav-links li a{
-  color: white;
-  text-decoration: none;
-}
-
-.navbar_separator{
+  gap: 16px;
+  margin: 0;
   padding: 0 30px;
 }
+
+.navbar__link {
+  border: none;
+  background: transparent;
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.navbar__link:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.navbar__link--active {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+

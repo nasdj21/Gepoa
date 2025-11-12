@@ -33,3 +33,17 @@
   max-width: 50vw;
   z-index: 500;
 }
+
+.help-panel {
+  padding: 80px 24px 32px;
+  max-width: 960px;
+  margin: 0 auto;
+  color: #0f172a;
+}
+
+.help-panel__content {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+  padding: 32px;
+}
