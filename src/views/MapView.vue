@@ -4,7 +4,7 @@
       <div id="map" class="map-view-wrapper__map"></div>
 
       <header class="app-header">
-        <img src="@/assets/Logo_gepoa.jpeg" alt="Geoportal logo" class="app-header__logo" />
+       <GeoportalNavbar />
       </header>
 
       <LateralBar ref="filters" class="map-view-wrapper__filters" />
@@ -23,6 +23,7 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import L from 'leaflet'
+import GeoportalNavbar from '@/components/GeoportalNavbar.vue'
 import LateralBar from '@/components/LateralBar.vue'
 import TimeLineChart from '@/components/TimeLineChart.vue'
 import 'leaflet/dist/leaflet.css'
@@ -116,7 +117,7 @@ const activeStyle = { color: 'darkred', weight: 2, fillColor: 'darkred', fillOpa
 const hoverStyle = { color: '#9398a2', weight: 2.5, dashArray: '4 3', fillColor: '#415f68', fillOpacity: 0.4 }
 
 onMounted(async () => {
-  map = L.map('map').setView([-0.747267, -87], 6.5)
+  map = L.map('map').setView([-0.747267, -87], 6.4)
 
   const baseLayers = createBaseLayers()
   baseLayers['Vista General'].addTo(map)

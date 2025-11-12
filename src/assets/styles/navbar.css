@@ -1,0 +1,39 @@
+.app-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45px;
+  background: linear-gradient(90deg, #0b4f6c, #0f6d7a);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 600;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+}
+
+.app-header__logo {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navbar{
+  display: flex;
+  align-items: center;
+}
+
+.nav-links{
+  display: flex;
+  gap: 50px;
+  list-style: none;
+}
+
+.nav-links li a{
+  color: white;
+  text-decoration: none;
+}
+
+.navbar_separator{
+  padding: 0 30px;
+}
