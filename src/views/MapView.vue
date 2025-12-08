@@ -1,17 +1,32 @@
 <template>
   <v-container fluid class="pa-0 map-view-wrapper">
     <div class="map-view-wrapper__inner">
-      <div id="map" class="map-view-wrapper__map"></div>
+      <header class="app-header">
+        <GeoportalNavbar v-model:activeTab="activeTab" />
+      </header>
 
-      <LateralBar ref="filters" class="map-view-wrapper__filters" />
+      <div v-show="activeTab === 'mapa'" class="map-view-wrapper__map-layer">
+        <div id="map" class="map-view-wrapper__map"></div>
 
-      <TimeLineChart
-        class="map-view-wrapper__timeline"
-        :zone="timelineZone"
-        :variable="timelineVariable"
-        :date-start="timelineStart"
-        :date-end="timelineEnd"
-      />
+        <LateralBar ref="filters" class="map-view-wrapper__filters" />
+
+        <aside class="map-view-wrapper__side-panel">
+          <ZoneInformation
+            :zone="timelineZone"
+            :variable="timelineVariable"
+            :date-start="timelineStart"
+            :date-end="timelineEnd"
+          />
+        </aside>
+      </div>
+
+      <section v-show="activeTab === 'ayuda'" class="help-panel">
+        <div class="help-panel__content">
+          <h1>Ayuda</h1>
+          <p>Selecciona una zona en el mapa y explora sus datos en el panel derecho.</p>
+          <p>Puedes volver al mapa usando el bot&oacute;n &ldquo;Mapa&rdquo; en la barra superior.</p>
+        </div>
+      </section>
     </div>
   </v-container>
 </template>
@@ -19,12 +34,14 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import L from 'leaflet'
+import GeoportalNavbar from '@/components/GeoportalNavbar.vue'
 import LateralBar from '@/components/LateralBar.vue'
-import TimeLineChart from '@/components/TimeLineChart.vue'
+import ZoneInformation from '@/components/ZoneInformation.vue'
 import 'leaflet/dist/leaflet.css'
 import { AOEService } from '@/services/AOEService'
 import { useMapInteractions } from '@/composables/useMapInteractions'
 
+const activeTab = ref('mapa')
 const filters = ref(null)
 let map = null
 let geoJsonLayer = null
@@ -179,4 +196,10 @@ watch(
     pendingZoneSelection = null
   }
 )
+
+watch(activeTab, (tab) => {
+  if (tab === 'mapa' && map) {
+    setTimeout(() => map.invalidateSize(), 100)
+  }
+})
 </script>

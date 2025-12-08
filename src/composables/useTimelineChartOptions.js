@@ -21,6 +21,9 @@ export function useTimelineChartOptions(chartData, tickStep) {
       },
       scales: {
         x: {
+          grid:{
+            display: false
+          },
           ticks: {
             autoSkip: false,
             maxRotation: rotation,

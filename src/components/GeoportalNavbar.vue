@@ -1,10 +1,9 @@
 <template>
   <header class="app-header">
-    <nav class="navbar" aria-label="Navegación principal">
+    <nav class="navbar" aria-label="Navegacion principal">
       <div class="navbar__brand">
         <img src="@/assets/Logo_gepoa.jpeg" alt="Geoportal logo" class="navbar__logo" />
       </div>
-
 
       <ul class="navbar__links" role="tablist">
         <li class="navbar__item" role="presentation">
@@ -32,7 +31,7 @@
             id="tab-ayuda-btn"
             @click="setTab('ayuda')"
           >
-            Cómo usar el geoportal
+            Como usar el geoportal
           </button>
         </li>
       </ul>
