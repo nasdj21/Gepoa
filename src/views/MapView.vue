@@ -21,11 +21,7 @@
       </div>
 
       <section v-show="activeTab === 'ayuda'" class="help-panel">
-        <div class="help-panel__content">
-          <h1>Ayuda</h1>
-          <p>Selecciona una zona en el mapa y explora sus datos en el panel derecho.</p>
-          <p>Puedes volver al mapa usando el bot&oacute;n &ldquo;Mapa&rdquo; en la barra superior.</p>
-        </div>
+      <HelpPanel/>
       </section>
     </div>
   </v-container>
@@ -40,6 +36,7 @@ import ZoneInformation from '@/components/ZoneInformation.vue'
 import 'leaflet/dist/leaflet.css'
 import { AOEService } from '@/services/AOEService'
 import { useMapInteractions } from '@/composables/useMapInteractions'
+import HelpPanel from '@/components/HelpPanel.vue'
 
 const activeTab = ref('mapa')
 const filters = ref(null)
