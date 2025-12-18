@@ -17,6 +17,7 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 .env
+.env*
 
 # Editor directories and files
 .vscode/*
