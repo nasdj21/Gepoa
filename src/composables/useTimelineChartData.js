@@ -7,11 +7,11 @@ import { TimelineCsvExporter } from '@/utils/TimelineCsvExporter'
 const MAX_VISIBLE_LABELS = 12,
   ERA5_VARIABLES = ['T2m', 'SPR', 'PPT', 'MAG', 'DIR'],
   OISST_VARIABLES = ['SST', 'ANOM'],
-  MC_VARIABLES = ['so', 'zos', 'Magnitud', 'DirecciA3n']
+  MC_VARIABLES = ['so', 'zos', 'Magnitud', 'Direccion']
 
 const createChartData = (labels, data) => ({
   labels,
-  datasets: [{ label: 'Valores', data, borderColor: '#1976d2', tension: 0.3, fill: false }],
+  datasets: [{ label: 'Media', data, borderColor: '#1976d2', tension: 0.3, fill: false }],
 })
 
 const pickService = (variable) => {
