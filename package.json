@@ -16,7 +16,6 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@arcgis/core": "^4.34.8",
     "@mdi/font": "^7.4.47",
     "@supabase/supabase-js": "^2.76.1",
     "chart.js": "^4.5.1",
